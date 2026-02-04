@@ -3,7 +3,6 @@ package com.mirkamolcode.exercise;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,10 +23,25 @@ class Exercise1Test {
             "77, C",
             "86, B",
     })
-    void canReturnValidGrade(int score, String grade) {
-        String actual = underTest.getGrade(score);
-        assertThat(actual).isEqualTo(grade);
+    void canGetCorrectGrade(int grade, String expectedGrade) {
+        // when
+        String actual = underTest.getGrade(grade);
+        // then
+        assertThat(actual).isEqualTo(expectedGrade);
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "-1",
+            "101",
+            "-101",
+    })
+    void willThrowWhenInvalidGrade(int grade) {
+        assertThatThrownBy(() -> underTest.getGrade(grade))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Score must be between 0 and 100");
+    }
+
 
     @ParameterizedTest
     @CsvSource({
@@ -140,7 +154,7 @@ class Exercise1Test {
     }
 
     @Test
-     void canReverseCourseList() {
+    void canReverseCourseList() {
         // given
         List<String> courses = List.of("Math", "Music", "Science");
         // when
