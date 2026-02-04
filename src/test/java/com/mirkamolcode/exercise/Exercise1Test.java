@@ -95,6 +95,16 @@ class Exercise1Test {
         assertThat(actual).isEqualTo(0.0);
     }
 
+    @Test
+    void canCalculateAverageWhenNull() {
+        // given
+        List<Integer> numbers = null;
+        // when
+        double actual = underTest.calculateAverage(numbers);
+        // then
+        assertThat(actual).isEqualTo(0.0);
+    }
+
     @ParameterizedTest
     @CsvSource({
             "Ensieh Rahbar, erahbar",
