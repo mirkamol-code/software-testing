@@ -120,14 +120,8 @@ class Exercise1Test {
 
     }
 
-    @ParameterizedTest
-    @CsvSource({
-            "70",
-            "60",
-            "20",
-            "100",
-    })
-    void canGetTopStudents(int threshold) {
+    @Test
+    void canGetTopStudents() {
         // given
         List<Student> students = List.of(
                 new Student("Ensieh", 85),
@@ -137,12 +131,28 @@ class Exercise1Test {
                 new Student("Yusuf", 78),
                 new Student("Franco", 83)
         );
+        var threshold = 79;
         // when
         List<Student> actual = underTest.getTopStudents(students, threshold);
         // then
-        List<Student> expected = students.stream().filter(student -> student.score() <= threshold)
-                .sorted((a, b) -> Integer.compare(b.score(), a.score()))
-                .toList();
+        List<Student> expected = List.of(
+                new Student("Yusuf", 78),
+                new Student("Ali", 60),
+                new Student("Jamila", 50)
+        );
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void willReturnEmptyListWhenStudentsAreNull() {
+        // given
+        List<Student> students = null;
+
+        var threshold = 50;
+        // when
+        List<Student> actual = underTest.getTopStudents(students, threshold);
+        // then
+        List<Student> expected = List.of();
         assertThat(actual).isEqualTo(expected);
     }
 
