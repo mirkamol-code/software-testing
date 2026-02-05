@@ -1,4 +1,4 @@
-package com.mirkamolcode.exercise;
+package com.mirkamolcode.exercise.student;
 
 public record Student(
         String name,

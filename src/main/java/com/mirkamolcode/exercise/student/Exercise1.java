@@ -1,4 +1,4 @@
-package com.mirkamolcode.exercise;
+package com.mirkamolcode.exercise.student;
 
 import java.util.ArrayList;
 import java.util.Collections;
